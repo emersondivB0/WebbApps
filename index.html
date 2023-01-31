@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Passwords</title>
+</head>
+    <header>
+        <h1>
+            Generador de Contraseñas Master.
+        </h1>
+    </header>
+    
+<body>
+    <div class="bloque-entrada">
+        <div class="bloque">
+            <div class="slider-label">
+                <label for="slider_lower">Minúsculas: </label>
+            </div>
+            <div class="range_slider">           
+                <input type="range" min="0" max="10" value="5" id="slider_lower" class="slider">
+                <div class="slider-thumb" id="selectorl">
+                    <div class="tooltip" id="tooltipl"></div>
+                </div>
+                <div class="progress" id="progressl"></div>
+            </div>
+        </div>
+
+        <div class="bloque">
+            <div class="slider-label">
+                <label for="slider_lower">Mayúsculas: </label>
+            </div>
+            <div class="range_slider"> 
+                <input type="range" min="0" max="10" value="5" id="slider_upper" class="slider">
+                <div class="slider-thumb" id="selectoru">
+                    <div class="tooltip" id="tooltipu"></div>
+                </div>
+                <div class="progress" id="progressu"></div>
+            </div>
+    
+        </div>
+
+        <div class="bloque">
+            <div class="slider-label">
+                <label for="slider_lower">Números: </label>
+            </div>
+            <div class="range_slider">          
+                <input type="range" min="0" max="10" value="5" id="slider_numbers" class="slider">
+                <div class="slider-thumb" id="selectorn">
+                    <div class="tooltip" id="tooltipn"></div>
+                </div>
+                <div class="progress" id="progressn"></div>
+            </div>
+        
+        </div>
+    
+        <div class="bloque">
+            <div class="slider-label">
+                <label for="slider_lower">Símbolos: </label>
+            </div>
+            <div class="range_slider">
+                
+                <input type="range" min="0" max="10" value="5" id="slider_symbols" class="slider">
+                <div class="slider-thumb" id="selectors">
+                    <div class="tooltip" id="tooltips"></div>
+                </div>
+                <div class="progress" id="progresss"></div>
+            </div>
+        </div>
+    </div>
+   
+
+    <script> //MINUSCULAS
+        var sliderl = document.getElementById("slider_lower");
+        var selector = document.getElementById("selectorl");
+        var selectValue = document.getElementById("tooltipl");
+        var progressBar = document.getElementById("progressl")
+
+        selectValue.innerHTML = sliderl.value;
+
+        sliderl.oninput = function(){
+            selectValue.innerHTML = this.value;
+            selector.style.left = (this.value * 10) + "%";
+            progressBar.style.width = (this.value * 10) + "%";
+        }
+    </script>
+
+    <script> //MAYUSCULAS
+        var slideru = document.getElementById("slider_upper");
+        var selectorU = document.getElementById("selectoru");
+        var selectValueU = document.getElementById("tooltipu");
+        var progressBarU = document.getElementById("progressu")
+
+        selectValueU.innerHTML = slideru.value;
+
+        slideru.oninput = function(){
+            selectValueU.innerHTML = this.value;
+            selectorU.style.left = (this.value * 10) + "%";
+            progressBarU.style.width = (this.value * 10) + "%";
+        }
+    </script>
+
+    <script> //NUMEROS
+        var slidern = document.getElementById("slider_numbers");
+        var selectorn = document.getElementById("selectorn");
+        var selectValuen = document.getElementById("tooltipn");
+        var progressBarn = document.getElementById("progressn")
+
+        selectValuen.innerHTML = slidern.value;
+
+        slidern.oninput = function(){
+            selectValuen.innerHTML = this.value;
+            selectorn.style.left = (this.value * 10) + "%";
+            progressBarn.style.width = (this.value * 10) + "%";
+        }
+    </script>
+
+    <script> //SIMBOLOS
+        var sliders = document.getElementById("slider_symbols");
+        var selectors = document.getElementById("selectors");
+        var selectValues = document.getElementById("tooltips");
+        var progressBars = document.getElementById("progresss")
+
+        selectValues.innerHTML = sliders.value;
+
+        sliders.oninput = function(){
+            selectValues.innerHTML = this.value;
+            selectors.style.left = (this.value * 10) + "%";
+            progressBars.style.width = (this.value * 10) + "%";
+        }
+    </script>
+
+    <div class="bloque-salida">
+        <form class="salida" onsubmit="return false">
+            <textarea readonly name="" id="outputText"  placeholder="Password..."></textarea><br>
+        </form> 
+
+        <form class="boton-copia" onsubmit="return false">
+            <input id="copia" type="submit" value="Copiar" class="copiar">
+        </form>
+            
+        <form >
+            <input class="borrar" type="submit" value="⟲" id="borrar">
+        </form>
+        <span id="copiarResp"></span>
+    </div>
+
+
+    <script>
+        
+
+        //main function
+        function generatePassword(lower, upper, numbers, symbols) {
+            var length = 8,
+                charset_lower = "abcdefghijklmnopqrstuvwxyz",
+                charset_upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                charset_numbers = "0123456789",
+                charset_symbols = "#$%&()*[]{}-_!?¡¿",
+                retVal_lower = "",
+                retVal_upper = "",
+                retVal_numbers = "",
+                retVal_symbols = "",
+                retVal = "";
+
+            for (var i = 0, n = charset_lower.length; i < lower; ++i) {
+                retVal_lower += charset_lower.charAt(Math.floor(Math.random() * n));
+            }
+            for (var i = 0, n = charset_upper.length; i < upper; ++i) {
+                retVal_upper += charset_upper.charAt(Math.floor(Math.random() * n));
+            }
+            for (var i = 0, n = charset_numbers.length; i < numbers; ++i) {
+                retVal_numbers += charset_numbers.charAt(Math.floor(Math.random() * n));
+            }
+            for (var i = 0, n = charset_symbols.length; i < symbols; ++i) {
+                retVal_symbols += charset_symbols.charAt(Math.floor(Math.random() * n));
+            }
+            retVal = retVal_lower+retVal_upper+retVal_numbers+retVal_symbols;
+
+            let stringRandom = retVal.split('').sort(function(){
+            return 0.5 - Math.random();
+            }).join('');
+            console.log(stringRandom);
+
+            return stringRandom;
+        }
+
+        var slider_l = document.getElementById("slider_lower");
+        var slider_u = document.getElementById("slider_upper");
+        var slider_n = document.getElementById("slider_numbers");
+        var slider_s = document.getElementById("slider_symbols");
+        
+        
+        function handleRangeInput() {
+            let value_lower = slider_l.value;
+            let value_upper = slider_u.value;
+            let value_numbers = slider_n.value;
+            let value_symbols = slider_s.value;
+            var password = generatePassword(value_lower, value_upper,value_numbers,value_symbols)
+            console.log(password)
+            document.getElementById("outputText").innerHTML = password;
+        }
+
+        slider_l.addEventListener('input',handleRangeInput);
+        slider_u.addEventListener('input',handleRangeInput);
+        slider_n.addEventListener('input',handleRangeInput);
+        slider_s.addEventListener('input',handleRangeInput);
+
+    </script>
+
+    <script>
+        var textsalida = document.getElementById("outputText");
+            var copyar     = document.getElementById("copia");
+            var respuesta  = document.getElementById("copiarResp");
+            copyar.addEventListener('click', function(e) {
+                // Seleccionando el texto
+                textsalida.select(); 
+                try {
+                    // Copiando el texto seleccionado
+                    var exito = document.execCommand('copy');
+              
+                    if(exito) respuesta.innerHTML = 'Copiado!';
+                    else respuesta.innerHTML = 'No se pudo copiar!';
+                } catch (err) {
+                    respuesta.innerHTML = 'Navegador no soportado!';
+                }
+             });
+    </script>
+    
+</body>
+</html>
